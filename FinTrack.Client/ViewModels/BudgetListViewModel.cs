@@ -54,7 +54,7 @@ namespace FinTrack.Client.ViewModels
             var result = await _budgetService.GetBudgets(User.Id);
             var currencies = await _currencyService.GetCurrencies();
 
-            if(currencies.IsFailure)
+            if (currencies.IsFailure)
                 await Shell.Current.DisplayAlert("Error", currencies.Error, "Ok");
             else if (result.IsFailure)
                 await Shell.Current.DisplayAlert("Error", result.Error, "Ok");
@@ -79,6 +79,42 @@ namespace FinTrack.Client.ViewModels
         {
             Budgets = new ObservableCollection<Budget>
         {
+            new Budget
+            {
+                Id = 1,
+                Name = "Budget 1",
+                PlannedAmountOfMoney = 1000.00m,
+                TotalAmountOfMoney = 1200.00m,
+                UserId = 1,
+                User = new User { Id = 1, Name = "User 1" },
+                CreationDate = DateTime.Now.AddMonths(-1),
+                CurrencyId = 1,
+                Currency = new Currency { Id = 1, Name = "USD" }
+            },
+            new Budget
+            {
+                Id = 2,
+                Name = "Budget 2",
+                PlannedAmountOfMoney = 2000.00m,
+                TotalAmountOfMoney = 1800.00m,
+                UserId = 2,
+                User = new User { Id = 2, Name = "User 2" },
+                CreationDate = DateTime.Now.AddMonths(-2),
+                CurrencyId = 2,
+                Currency = new Currency { Id = 2, Name = "EUR" }
+            },
+            new Budget
+            {
+                Id = 3,
+                Name = "Budget 3",
+                PlannedAmountOfMoney = 1500.00m,
+                TotalAmountOfMoney = 1500.00m,
+                UserId = 1,
+                User = new User { Id = 1, Name = "User 1" },
+                CreationDate = DateTime.Now.AddMonths(-3),
+                CurrencyId = 3,
+                Currency = new Currency { Id = 3, Name = "GBP" }
+            },
             new Budget
             {
                 Id = 1,

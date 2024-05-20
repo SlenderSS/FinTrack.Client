@@ -6,21 +6,21 @@
              xmlns:models="clr-namespace:FinTrack.Client.Models"
              x:DataType="vm:BudgetListViewModel"
              Title="Budgets">
-    <VerticalStackLayout>
-        <Button Text="Add new budget"
-                VerticalOptions="End"
-                Margin="10" Command="{Binding CreateBudgetCommand}"/>
-        
-        <CollectionView ItemsSource="{Binding Budgets}"
+    <Grid RowDefinitions="50, *" Margin="20">
+
+        <Button Grid.Row="0"
+                Text="Add new budget"
+                Command="{Binding CreateBudgetCommand}" />
+
+
+        <CollectionView Grid.Row="2"
+                        ItemsSource="{Binding Budgets}"
                         Margin="10"
                         SelectionMode="Single"
-                        VerticalOptions="FillAndExpand"
-                        SelectionChangedCommand="{Binding}"
                         SelectedItem="{Binding SelectedBudget}">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout ItemSpacing="40"
-                                   Orientation="Vertical"
-                                   SnapPointsAlignment="Start" />
+                                   Orientation="Vertical" />
 
 
             </CollectionView.ItemsLayout>
@@ -75,5 +75,6 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-    </VerticalStackLayout>
+
+    </Grid>
 </ContentPage>
