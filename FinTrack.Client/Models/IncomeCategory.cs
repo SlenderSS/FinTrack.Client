@@ -1,8 +1,8 @@
-﻿using FinTrack.Client.MVVM.Models.Base;
+﻿using FinTrack.Client.Models.Base;
 
-namespace FinTrack.Client.MVVM.Models
+namespace FinTrack.Client.Models
 {
-    internal class IncomeCategory : BaseModel
+    public class IncomeCategory : BaseModel
     {
         public User User { get; set; }
     }

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FinTrack.Client.MVVM.Models.Base
+namespace FinTrack.Client.Models.Base
 {
-    internal class BaseModel
+    public class BaseModel
     {
         public int Id { get; set; }
         public string Name { get; set; }

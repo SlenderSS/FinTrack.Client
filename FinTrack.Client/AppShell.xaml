@@ -4,15 +4,15 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:pages="clr-namespace:FinTrack.Client.Pages"
+    xmlns:userpages="clr-namespace:FinTrack.Client.Pages.Profile"
     xmlns:vm="clr-namespace:FinTrack.Client.ViewModels"
     Shell.FlyoutBehavior="Disabled"
     Title="FinTrack.Client">
 
 
-
     <ShellContent
-        ContentTemplate="{DataTemplate pages:RegistrationPage}"
-        Route="registration" />
+        ContentTemplate="{DataTemplate userpages:BudgetView}"
+        Route="budgets"/>
 
     <ShellContent
         ContentTemplate="{DataTemplate pages:LoginPage}"

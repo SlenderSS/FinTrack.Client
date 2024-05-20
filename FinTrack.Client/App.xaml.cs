@@ -1,4 +1,6 @@
-﻿namespace FinTrack.Client
+﻿using FinTrack.Client.Pages;
+
+namespace FinTrack.Client
 {
     public partial class App : Application
     {

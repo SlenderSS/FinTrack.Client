@@ -1,8 +1,8 @@
-﻿using FinTrack.Client.MVVM.Models.Base;
+﻿using FinTrack.Client.Models.Base;
 
-namespace FinTrack.Client.MVVM.Models
+namespace FinTrack.Client.Models
 {
-    internal class Currency : BaseModel 
+    public class Currency : BaseModel 
     {
         public char Symbol { get; set; }
     }

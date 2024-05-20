@@ -1,8 +1,8 @@
-﻿using FinTrack.Client.MVVM.Models.Base;
+﻿using FinTrack.Client.Models.Base;
 
-namespace FinTrack.Client.MVVM.Models
+namespace FinTrack.Client.Models
 {
-    internal class Income : BaseModel
+    public class Income : BaseModel
     {
         public required string Description { get; set; }
         public required decimal IncomeVolume { get; set; }

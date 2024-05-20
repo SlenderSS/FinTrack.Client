@@ -1,4 +1,6 @@
-﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.Input;
+using FinTrack.Client.Services.Interfaces;
+using Microsoft.Toolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,36 +10,60 @@ using System.Windows.Input;
 
 namespace FinTrack.Client.ViewModels
 {
-    internal class RegistrationViewModel : ObservableObject
+    public partial class RegistrationViewModel : ObservableObject
     {
-        public string Message { get; set; }
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public string ConfPassword { get; set; }
+        private bool isHidden = true;
+        private string message;
+        private string username;
+        private string password;
+        private string confPassword;
+        private readonly IUserService _userService;
 
-        public ICommand RegistrationCommand => new Command(() =>
+        public string Message { get => message; set => SetProperty(ref message, value); }
+        public string Username { get => username; set => SetProperty(ref username, value); }
+        public string Password { get => password; set => SetProperty(ref password, value); }
+        public string ConfPassword { get => confPassword; set => SetProperty(ref confPassword, value); }
+        public bool IsHidden { get => isHidden; set => SetProperty(ref isHidden, value); }
+
+        [RelayCommand]
+        public async Task Registration()
         {
-
-        },
-            () =>
+            if (Username == null || Password == null || ConfPassword == null)
             {
-                if (Username == null || Password == null || ConfPassword == null)
-                {
-                    Message = "All data must be entered!";
-                    return false;
-                }
-                if (Password != ConfPassword)
-                {
-                    Message = "Passwords dp not match!";
-                    return false;
-                }
-                return true;
+                await Shell.Current.DisplayAlert("Congratulation", "All data must be entered!", "Ok");
+                return;
             }
-            );
+            if (Password != ConfPassword)
+            {
+               
+                await Shell.Current.DisplayAlert("Congratulation", "Passwords do not match!", "Ok");
+                return;
+            }
+            
+            var regist = await _userService.Registration(Username, Password);
+            if (regist.IsFailure)
+            {
+                await Shell.Current.DisplayAlert("Congratulation", regist.Error, "Ok");
+            }
+            else
+            {
+                await Shell.Current.DisplayAlert("Congratulation", "Registration was successful", "Ok");
 
-        public RegistrationViewModel()
+            }
+        }
+        [RelayCommand]
+        public async Task GoToLogin()
         {
+            await Shell.Current.Navigation.PopAsync();
+        }
 
+
+
+
+
+        public RegistrationViewModel(IUserService userService)
+        {
+            _userService = userService;
         }
     }
 }

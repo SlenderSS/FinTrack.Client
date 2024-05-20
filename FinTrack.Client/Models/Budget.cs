@@ -1,13 +1,13 @@
-﻿using FinTrack.Client.MVVM.Models.Base;
+﻿using FinTrack.Client.Models.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FinTrack.Client.MVVM.Models
+namespace FinTrack.Client.Models
 {
-    internal class Budget : BaseModel
+    public class Budget : BaseModel
     {
         public required decimal AmountOfMoney { get; set; }
         public required int UserId { get; set; }
