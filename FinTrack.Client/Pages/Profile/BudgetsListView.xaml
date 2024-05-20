@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FinTrack.Client.Pages.Profile.BudgetsListView"
+             xmlns:vm="clr-namespace:FinTrack.Client.ViewModels"
+             xmlns:models="clr-namespace:FinTrack.Client.Models"
+             x:DataType="vm:BudgetListViewModel"
+             Title="Budgets">
+    <VerticalStackLayout>
+        <Button Text="Add new budget"
+                VerticalOptions="End"
+                Margin="10" Command="{Binding CreateBudgetCommand}"/>
+        
+        <CollectionView ItemsSource="{Binding Budgets}"
+                        Margin="10"
+                        SelectionMode="Single"
+                        VerticalOptions="FillAndExpand"
+                        SelectionChangedCommand="{Binding}"
+                        SelectedItem="{Binding SelectedBudget}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout ItemSpacing="40"
+                                   Orientation="Vertical"
+                                   SnapPointsAlignment="Start" />
+
+
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Budget">
+                    <Frame CornerRadius="10"
+                           BackgroundColor="LightGray"
+                           HeightRequest="170">
+                        <Grid RowDefinitions="*, *, *, *"
+                              ColumnDefinitions="2*, *">
+                            <Label Grid.Row="0"
+                                   Grid.ColumnSpan="2"
+                                   Text="{Binding Name}"
+                                   FontSize="Title" />
+
+                            <Label Grid.Row="1"
+                                   Grid.Column="0"
+                                   HorizontalOptions="End"
+                                   Text="Planned: "
+                                   FontSize="Subtitle" />
+                            <Label Grid.Row="1"
+                                   Grid.Column="1"
+                                   HorizontalOptions="End"
+                                   Text="{Binding PlannedAmountOfMoney}"
+                                   FontSize="Subtitle" />
+
+                            <Label Grid.Row="2"
+                                   Grid.Column="0"
+                                   HorizontalOptions="End"
+                                   Text="Total: "
+                                   FontSize="Subtitle" />
+                            <Label Grid.Row="2"
+                                   Grid.Column="1"
+                                   HorizontalOptions="End"
+                                   Text="{Binding TotalAmountOfMoney}"
+                                   FontSize="Subtitle" />
+
+                            <Label Grid.Row="3"
+                                   Grid.Column="0"
+                                   HorizontalOptions="End"
+                                   Text="Created: "
+                                   FontSize="Subtitle" />
+                            <Label Grid.Row="3"
+                                   Grid.Column="1"
+                                   HorizontalOptions="End"
+                                   Text="{Binding CreationDate}"
+                                   FontSize="Subtitle" />
+
+
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+</ContentPage>

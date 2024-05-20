@@ -4,7 +4,7 @@ using FinTrack.Client.Services.Implementation;
 using FinTrack.Client.Services.Interfaces;
 using FinTrack.Client.ViewModels;
 using Microsoft.Extensions.Logging;
-
+using CommunityToolkit.Maui;
 namespace FinTrack.Client
 {
     public static class MauiProgram
@@ -12,8 +12,10 @@ namespace FinTrack.Client
         public static MauiApp CreateMauiApp()
         {
             var builder = MauiApp.CreateBuilder();
+            
             builder
                 .UseMauiApp<App>()
+                .UseMauiCommunityToolkit()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -35,12 +37,18 @@ namespace FinTrack.Client
                 BindingContext = s.GetRequiredService<RegistrationViewModel>()
             });
 
+            builder.Services.AddSingleton<BudgetListViewModel>();
+            builder.Services.AddSingleton<BudgetsListView>(s => new BudgetsListView()
+            {
+                BindingContext = s.GetRequiredService<BudgetListViewModel>()
+            });
+
+
             builder.Services.AddSingleton<BudgetViewModel>();
             builder.Services.AddSingleton<BudgetView>(s => new BudgetView()
             {
                 BindingContext = s.GetRequiredService<BudgetViewModel>()
             });
-
 #if DEBUG
             builder.Logging.AddDebug();
 #endif

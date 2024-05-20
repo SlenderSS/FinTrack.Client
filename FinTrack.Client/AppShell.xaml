@@ -11,7 +11,7 @@
 
 
     <ShellContent
-        ContentTemplate="{DataTemplate userpages:BudgetView}"
+        ContentTemplate="{DataTemplate userpages:BudgetsListView}"
         Route="budgets"/>
 
     <ShellContent

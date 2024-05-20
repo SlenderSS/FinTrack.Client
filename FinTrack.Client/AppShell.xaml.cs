@@ -9,6 +9,7 @@ namespace FinTrack.Client
             InitializeComponent();
 
             Routing.RegisterRoute("login/registration", typeof(RegistrationPage));
+            Routing.RegisterRoute("budgets/budgetDetails", typeof(RegistrationPage));
         }
     }
 }
