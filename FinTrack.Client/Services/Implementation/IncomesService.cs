@@ -2,34 +2,28 @@
 using FinTrack.Client.Models;
 using FinTrack.Client.Services.Interfaces;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-
 
 namespace FinTrack.Client.Services.Implementation
 {
-    public class BudgetService : IBudgetService
+    public class IncomesService : IIncomeService
     {
         private readonly HttpClient _httpClient;
-        private readonly string _baseUrl = "https://localhost:44352/api/Budget"; // https://localhost:44352/api/Budget?userId=1&currencyId=1
-        public BudgetService()
+        private readonly string _baseUrl = "https://localhost:44352/api/Income";
+        public IncomesService()
         {
             _httpClient = new HttpClient();
             _httpClient.BaseAddress = new Uri(_baseUrl);
         }
-
-        public async Task<Result> CreateBudget(int userId, int currencyId, Budget budget)
+        public async Task<Result> CreateIncome(int budgetId, Income incomeCreate)
         {
             try
             {
                 HttpRequestMessage message =
                 new HttpRequestMessage(
                     HttpMethod.Post,
-                    _httpClient.BaseAddress + $"?userId={userId}&currencyId={currencyId}");
-                var content = JsonConvert.SerializeObject(budget);
+                    _httpClient.BaseAddress + $"?budgetId={budgetId}");
+                var content = JsonConvert.SerializeObject(incomeCreate);
 
                 message.Content = new StringContent(content, Encoding.UTF8, "application/json");
 
@@ -50,29 +44,28 @@ namespace FinTrack.Client.Services.Implementation
             }
         }
 
-        public async Task<Result<IEnumerable<Budget>>> GetBudgets(int userId)
+        public async Task<Result<IEnumerable<Income>>> GetIncomes(int budgetId)
         {
             try
             {
                 HttpRequestMessage message =
                 new HttpRequestMessage(
                     HttpMethod.Get,
-                    _httpClient.BaseAddress + $"/{userId}");
-               
+                    _httpClient.BaseAddress + $"/{budgetId}");
+
                 using var response = await _httpClient.SendAsync(message);
                 response.EnsureSuccessStatusCode();
                 string responseBody = await response.Content.ReadAsStringAsync();
 
-                var budgets = JsonConvert.DeserializeObject<IEnumerable<Budget>>(responseBody);
+                var incomes = JsonConvert.DeserializeObject<IEnumerable<Income>>(responseBody);
 
-                return Result.Success<IEnumerable<Budget>>(budgets);
-                
+                return Result.Success<IEnumerable<Income>>(incomes);
+
             }
             catch (HttpRequestException e)
             {
-                return Result.Failure<IEnumerable<Budget>>(e.Message);
+                return Result.Failure<IEnumerable<Income>>(e.Message);
             }
-            
         }
     }
 }

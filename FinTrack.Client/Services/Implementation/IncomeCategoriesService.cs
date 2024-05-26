@@ -2,34 +2,28 @@
 using FinTrack.Client.Models;
 using FinTrack.Client.Services.Interfaces;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-
 
 namespace FinTrack.Client.Services.Implementation
 {
-    public class BudgetService : IBudgetService
+    public class IncomeCategoriesService : IIncomeCategoryService
     {
         private readonly HttpClient _httpClient;
-        private readonly string _baseUrl = "https://localhost:44352/api/Budget"; // https://localhost:44352/api/Budget?userId=1&currencyId=1
-        public BudgetService()
+        private readonly string _baseUrl = "https://localhost:44352/api/Income"; // create https://localhost:44352/api/Income?budgetId=1
+        public IncomeCategoriesService()
         {
             _httpClient = new HttpClient();
             _httpClient.BaseAddress = new Uri(_baseUrl);
         }
-
-        public async Task<Result> CreateBudget(int userId, int currencyId, Budget budget)
+        public async Task<Result> CreateIncomeCategory(int budgetId, IncomeCategory expenseCreate)
         {
             try
             {
                 HttpRequestMessage message =
                 new HttpRequestMessage(
                     HttpMethod.Post,
-                    _httpClient.BaseAddress + $"?userId={userId}&currencyId={currencyId}");
-                var content = JsonConvert.SerializeObject(budget);
+                    _httpClient.BaseAddress + $"?budgetId={budgetId}");
+                var content = JsonConvert.SerializeObject(expenseCreate);
 
                 message.Content = new StringContent(content, Encoding.UTF8, "application/json");
 
@@ -50,7 +44,8 @@ namespace FinTrack.Client.Services.Implementation
             }
         }
 
-        public async Task<Result<IEnumerable<Budget>>> GetBudgets(int userId)
+
+        public async Task<Result<IEnumerable<IncomeCategory>>> GetIncomeCategories(int userId)
         {
             try
             {
@@ -58,21 +53,22 @@ namespace FinTrack.Client.Services.Implementation
                 new HttpRequestMessage(
                     HttpMethod.Get,
                     _httpClient.BaseAddress + $"/{userId}");
-               
+
                 using var response = await _httpClient.SendAsync(message);
                 response.EnsureSuccessStatusCode();
                 string responseBody = await response.Content.ReadAsStringAsync();
 
-                var budgets = JsonConvert.DeserializeObject<IEnumerable<Budget>>(responseBody);
+                var expenses = JsonConvert.DeserializeObject<IEnumerable<IncomeCategory>>(responseBody);
 
-                return Result.Success<IEnumerable<Budget>>(budgets);
-                
+                return Result.Success<IEnumerable<IncomeCategory>>(expenses);
+
             }
             catch (HttpRequestException e)
             {
-                return Result.Failure<IEnumerable<Budget>>(e.Message);
+                return Result.Failure<IEnumerable<IncomeCategory>>(e.Message);
             }
-            
         }
+
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using FinTrack.Client.Pages;
+using FinTrack.Client.Pages.Profile;
 
 namespace FinTrack.Client
 {
@@ -9,7 +10,8 @@ namespace FinTrack.Client
             InitializeComponent();
 
             Routing.RegisterRoute("login/registration", typeof(RegistrationPage));
-            Routing.RegisterRoute("budgets/budgetDetails", typeof(RegistrationPage));
+            Routing.RegisterRoute("budgets/createBudget", typeof(CreateBudgetView));
+            Routing.RegisterRoute("budgets/budgetDetails", typeof(BudgetView));
         }
     }
 }

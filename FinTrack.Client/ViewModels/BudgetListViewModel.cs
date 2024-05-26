@@ -1,4 +1,6 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Maui.Views;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using FinTrack.Client.Models;
 using FinTrack.Client.Services.Interfaces;
@@ -16,8 +18,7 @@ namespace FinTrack.Client.ViewModels
     {
         private readonly IBudgetService _budgetService;
         private readonly ICurrencyService _currencyService;
-
-
+        private readonly IPopupService _popupService;
         [ObservableProperty]
         private User _user;
 
@@ -34,7 +35,12 @@ namespace FinTrack.Client.ViewModels
         [RelayCommand]
         public async Task CreateBudget()
         {
+            var parameners = new Dictionary<string, object>()
+            {
+                { "user", _user }
+            };
 
+            await Shell.Current.GoToAsync("createBudget", parameners);
         }
 
         [RelayCommand]
@@ -65,10 +71,13 @@ namespace FinTrack.Client.ViewModels
             }
 
         }
-        public BudgetListViewModel(IBudgetService budgetService, ICurrencyService currencyService)
+        public BudgetListViewModel(IBudgetService budgetService, 
+            ICurrencyService currencyService, 
+            IPopupService popupService)
         {
             _budgetService = budgetService;
             _currencyService = currencyService;
+            _popupService = popupService;
 
 
             //Task.Run(LoadDataAsync);

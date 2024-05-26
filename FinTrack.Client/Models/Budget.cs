@@ -9,13 +9,13 @@ namespace FinTrack.Client.Models
 {
     public class Budget : BaseModel
     {
-        public required decimal PlannedAmountOfMoney { get; set; }
-        public required decimal TotalAmountOfMoney { get; set; }
-        public required int UserId { get; set; }
-        public required User User { get; set; }
-        public required DateTime CreationDate { get; set; }
-        public required int CurrencyId { get; set; }
-        public required Currency Currency { get; set; }
+        public decimal PlannedAmountOfMoney { get; set; }
+        public decimal TotalAmountOfMoney { get; set; }
+        public int UserId { get; set; }
+        public User User { get; set; }
+        public DateTime CreationDate { get; set; }
+        public int CurrencyId { get; set; }
+        public Currency Currency { get; set; }
     }
 
 

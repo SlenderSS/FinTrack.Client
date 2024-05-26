@@ -20,6 +20,12 @@ namespace FinTrack.Client.ViewModels
 
         public ICommand LoginCommand => new Command(async () =>
         {
+
+            if(string.IsNullOrEmpty(Login) || string.IsNullOrEmpty(Password))
+            {
+                await AppShell.Current.DisplayAlert("", "All fields must be entered!", "Ok");
+                return;
+            }    
             var login = await _userService.Login(Login, Password);
             if (login.IsFailure)
             {

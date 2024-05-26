@@ -49,6 +49,14 @@ namespace FinTrack.Client
             {
                 BindingContext = s.GetRequiredService<BudgetViewModel>()
             });
+
+            //builder.Services.AddTransientPopup<CreateBudgetPopup, CreateBudgetViewModel>();
+
+            builder.Services.AddSingleton<CreateBudgetViewModel>();
+            builder.Services.AddSingleton<CreateBudgetView>(s => new CreateBudgetView()
+            {
+                BindingContext = s.GetRequiredService<CreateBudgetViewModel>()
+            });
 #if DEBUG
             builder.Logging.AddDebug();
 #endif

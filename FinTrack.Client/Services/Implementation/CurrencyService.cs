@@ -21,16 +21,18 @@ namespace FinTrack.Client.Services.Implementation
             try
             {
                 HttpRequestMessage message =
-                new HttpRequestMessage(
-                    HttpMethod.Get,
-                    _httpClient.BaseAddress);   
-                
+                        new HttpRequestMessage(HttpMethod.Get, _httpClient.BaseAddress);
+
                 using var response = await _httpClient.SendAsync(message);
+
                 response.EnsureSuccessStatusCode();
-                if(response.IsSuccessStatusCode)
+
+                if (response.IsSuccessStatusCode)
                 {
                     string responseBody = await response.Content.ReadAsStringAsync();
+
                     var currencies = JsonConvert.DeserializeObject<IEnumerable<Currency>>(responseBody);
+
                     return Result.Success<IEnumerable<Currency>>(currencies);
                 }
                 else

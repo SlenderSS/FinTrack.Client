@@ -8,11 +8,9 @@ using System.Threading.Tasks;
 
 namespace FinTrack.Client.Services.Interfaces
 {
-    public interface IBudgetService
+    public interface IExpenseService
     {
-        Task<Result<IEnumerable<Budget>>> GetBudgets(int userId);
-        Task<Result> CreateBudget(int userId, int currencyId, Budget budget);
-
-
+        Task<Result<IEnumerable<Expense>>> GetExpenses(int userId);
+        Task<Result> CreateExpense(int userId, Expense categoryCreate);
     }
 }

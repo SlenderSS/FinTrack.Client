@@ -17,6 +17,7 @@
                         ItemsSource="{Binding Budgets}"
                         Margin="10"
                         SelectionMode="Single"
+                        SelectionChangedCommand="{Binding GetBudgetDetailsCommand}"
                         SelectedItem="{Binding SelectedBudget}">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout ItemSpacing="40"
@@ -27,7 +28,7 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:Budget">
                     <Frame CornerRadius="10"
-                           BackgroundColor="LightGray"
+                           BackgroundColor="DarkGray"
                            HeightRequest="170">
                         <Grid RowDefinitions="*, *, *, *"
                               ColumnDefinitions="2*, *">
