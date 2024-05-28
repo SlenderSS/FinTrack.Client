@@ -10,9 +10,9 @@ namespace FinTrack.Client.Services.Interfaces
 {
     public interface IUserService
     {
-
+        Task<Result> DeleteUser(User user);
         Task<Result<User>> Login(string username, string password);
         Task<Result> Registration(string username, string password);
-
+        Task<Result> UpdateUser(User user);
     }
 }

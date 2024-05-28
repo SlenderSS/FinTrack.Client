@@ -12,18 +12,20 @@ namespace FinTrack.Client.ViewModels
 {
     public partial class RegistrationViewModel : ObservableObject
     {
-        private bool isHidden = true;
-        private string message;
-        private string username;
-        private string password;
-        private string confPassword;
         private readonly IUserService _userService;
 
-        public string Message { get => message; set => SetProperty(ref message, value); }
-        public string Username { get => username; set => SetProperty(ref username, value); }
-        public string Password { get => password; set => SetProperty(ref password, value); }
-        public string ConfPassword { get => confPassword; set => SetProperty(ref confPassword, value); }
-        public bool IsHidden { get => isHidden; set => SetProperty(ref isHidden, value); }
+        [ObservableProperty]
+        private bool _isHidden = true;
+
+        [ObservableProperty]
+        private string _username;
+
+        [ObservableProperty]
+        private string _password;
+
+        [ObservableProperty]
+        private string _confPassword;
+
 
         [RelayCommand]
         public async Task Registration()
@@ -56,10 +58,6 @@ namespace FinTrack.Client.ViewModels
         {
             await Shell.Current.Navigation.PopAsync();
         }
-
-
-
-
 
         public RegistrationViewModel(IUserService userService)
         {

@@ -18,18 +18,15 @@ namespace FinTrack.Client.ViewModels
     {
         private readonly IBudgetService _budgetService;
         private readonly ICurrencyService _currencyService;
-        private readonly IPopupService _popupService;
+
         [ObservableProperty]
-        private User _user;
+        private User _user = new User();
 
         public ObservableCollection<Budget> Budgets { get; set; } = new ObservableCollection<Budget>();
         public ObservableCollection<Currency> Currencies { get; set; } = new ObservableCollection<Currency>();
 
         [ObservableProperty]
         private Budget _selectedBudget;
-
-        [ObservableProperty]
-        private Budget _budgetCreate;
 
 
         [RelayCommand]
@@ -72,12 +69,11 @@ namespace FinTrack.Client.ViewModels
 
         }
         public BudgetListViewModel(IBudgetService budgetService, 
-            ICurrencyService currencyService, 
-            IPopupService popupService)
+            ICurrencyService currencyService)
         {
             _budgetService = budgetService;
             _currencyService = currencyService;
-            _popupService = popupService;
+
 
 
             //Task.Run(LoadDataAsync);

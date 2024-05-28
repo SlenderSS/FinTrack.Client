@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="FinTrack.Client.Pages.Profile.CreateBudgetView"
-             xmlns:vm="clr-namespace:FinTrack.Client.ViewModels"
-             x:DataType="vm:BudgetCreateViewModel"
-             Title="BudgetCreateView">
-    <Grid RowDefinitions="50, 100, 100, 100, 50" ColumnSpacing="20"
-          ColumnDefinitions="*, *" HorizontalOptions="Center">
+             x:Class="FinTrack.Client.Pages.Profile.AddExpenseView"
+             Title="AddExpenseView">
+    <Grid RowDefinitions="50, 100, 100, 100, 50"
+          ColumnSpacing="20"
+          ColumnDefinitions="*, *"
+          HorizontalOptions="Center">
 
         <Label Grid.Row="0"
                Grid.ColumnSpan="2"
                HorizontalOptions="Center"
                Text="Create budget"
-               
                VerticalOptions="Center"
                FontSize="Title" />
 
@@ -21,24 +20,20 @@
                HorizontalTextAlignment="Center"
                Grid.ColumnSpan="2"
                Margin="10"
-               
                HeightRequest="60" />
 
         <Picker Grid.Row="2"
                 Grid.ColumnSpan="2"
                 FontSize="Caption"
                 Margin="10"
- 
                 HeightRequest="60"
                 SelectedItem="{Binding BudgetCurrency}"
-                
                 HorizontalTextAlignment="Center"
                 ItemsSource="{Binding Currencies}"
                 ItemDisplayBinding="{Binding Name}">
         </Picker>
 
         <Label Grid.Row="3"
-              
                Grid.Column="0"
                VerticalOptions="Center"
                FontSize="Subtitle"

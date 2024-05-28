@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using FinTrack.Client.Models;
 using FinTrack.Client.Services.Interfaces;
 using System;
@@ -9,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace FinTrack.Client.ViewModels
 {
-    [QueryProperty(nameof(User), "user")]
+    [QueryProperty(nameof(Budget), "budget")]
     public partial class BudgetViewModel : ObservableObject
     {
-        private readonly IBudgetService budget;
+        private readonly IBudgetService _budgetService;
 
 
         [ObservableProperty]
@@ -29,9 +30,40 @@ namespace FinTrack.Client.ViewModels
             
         };
 
+        [RelayCommand]
+        public async Task ShowExpenses()
+        {
+            var parameters = new Dictionary<string, object>
+            {
+                {"budget",  _budget}
+            };
+
+            await Shell.Current.GoToAsync("expenses", parameters);
+        }
+
+        [RelayCommand]
+        public async Task ShowIncomes()
+        {
+            var parameters = new Dictionary<string, object>
+            {
+                {"budget",  _budget}
+            };
+
+            await Shell.Current.GoToAsync("incomes", parameters);
+        }
+        public async Task AddNewExpense()
+        {
+            var parameters = new Dictionary<string, object>
+            {
+                {"budget",  _budget}
+            };
+
+            await Shell.Current.GoToAsync("addExpense", parameters);
+        }
+
         public BudgetViewModel(IBudgetService budget)
         {
-            this.budget = budget;
+            _budgetService = budget;
         }
     }
 }

@@ -77,5 +77,16 @@ namespace FinTrack.Client.Services.Implementation
                 return Result.Failure<bool>(e.Message);
             }
         }
+
+        public async Task<Result> UpdateUser(User user)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public async Task<Result> DeleteUser(User user)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

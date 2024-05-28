@@ -1,10 +1,11 @@
 ﻿using FinTrack.Client.Pages;
 using FinTrack.Client.Pages.Profile;
-using FinTrack.Client.Services.Implementation;
-using FinTrack.Client.Services.Interfaces;
+
+using FinTrack.Client.Services;
 using FinTrack.Client.ViewModels;
 using Microsoft.Extensions.Logging;
 using CommunityToolkit.Maui;
+using SkiaSharp.Views.Maui.Controls.Hosting;
 namespace FinTrack.Client
 {
     public static class MauiProgram
@@ -16,14 +17,13 @@ namespace FinTrack.Client
             builder
                 .UseMauiApp<App>()
                 .UseMauiCommunityToolkit()
+                .UseSkiaSharp()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
-            builder.Services.AddTransient<IUserService, UserService>();
-            builder.Services.AddTransient<IBudgetService, BudgetService>();
-            builder.Services.AddTransient<ICurrencyService, CurrencyService>();
+            builder.Services.AddServices();
 
             builder.Services.AddSingleton<LoginViewModel>();
             builder.Services.AddSingleton<LoginPage>( s => new LoginPage()
@@ -52,11 +52,34 @@ namespace FinTrack.Client
 
             //builder.Services.AddTransientPopup<CreateBudgetPopup, CreateBudgetViewModel>();
 
-            builder.Services.AddSingleton<CreateBudgetViewModel>();
+            builder.Services.AddSingleton<BudgetCreateViewModel>();
             builder.Services.AddSingleton<CreateBudgetView>(s => new CreateBudgetView()
             {
-                BindingContext = s.GetRequiredService<CreateBudgetViewModel>()
+                BindingContext = s.GetRequiredService<BudgetCreateViewModel>()
             });
+
+            builder.Services.AddSingleton<AddCategoryViewModel>();
+            builder.Services.AddSingleton<AddCategoryView>(s => new AddCategoryView()
+            {
+                BindingContext = s.GetRequiredService<AddCategoryViewModel>()
+            });
+
+
+
+            builder.Services.AddSingleton<ExpensesViewModel>();
+            builder.Services.AddSingleton<ExpensesView>(s => new ExpensesView()
+            {
+                BindingContext = s.GetRequiredService<ExpensesViewModel>()
+            });
+
+            builder.Services.AddSingleton<IncomesViewModel>();
+            builder.Services.AddSingleton<IncomesView>(s => new IncomesView()
+            {
+                BindingContext = s.GetRequiredService<IncomesViewModel>()
+            });
+
+
+
 #if DEBUG
             builder.Logging.AddDebug();
 #endif

@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace FinTrack.Client.ViewModels
 {
     [QueryProperty(nameof(User), "user")]
-    public partial class CreateBudgetViewModel : ObservableObject
+    public partial class BudgetCreateViewModel : ObservableObject
     {
         private readonly IBudgetService _budgetService;
         private readonly ICurrencyService _currencyService;
@@ -35,7 +35,7 @@ namespace FinTrack.Client.ViewModels
         [ObservableProperty]
         private string _budgetTitle;
 
-        public CreateBudgetViewModel(IBudgetService budgetService, ICurrencyService currencyService)
+        public BudgetCreateViewModel(IBudgetService budgetService, ICurrencyService currencyService)
         {
             _budgetService = budgetService;
             _currencyService = currencyService;

@@ -4,18 +4,12 @@
              x:Class="FinTrack.Client.Pages.Profile.BudgetView"
              xmlns:vm="clr-namespace:FinTrack.Client.ViewModels"
              x:DataType="vm:BudgetViewModel"
-             Title="BudgetView">
+             Title="{Binding Budget.Name}">
 
     <ScrollView VerticalOptions="StartAndExpand">
-        <Grid RowDefinitions="50, 50, 50, 50, 60*, *"
+        <Grid RowDefinitions="50, 50, 50, 50, 60*, *, *"
               ColumnDefinitions="*,*">
 
-            <Label Grid.Row="0"
-                   Grid.ColumnSpan="2"
-                   Text="{Binding Budget.Name}"
-                   FontSize="Title"
-                   VerticalOptions="Start"
-                   HorizontalOptions="Center" />
 
             <Label Grid.Row="1"
                    Grid.ColumnSpan="2"
@@ -55,23 +49,38 @@
             <Button  Grid.Row="4"
                      Grid.Column="0"
                      Margin="10"
-                     WidthRequest="100"
+                     WidthRequest="120"
                      Text="Expenses"
+                     Command="{Binding ShowExpensesCommand}"
                      HorizontalOptions="End" />
 
             <Button  Grid.Row="4"
                      Grid.Column="1"
                      Margin="10"
-                     WidthRequest="100"
+                     WidthRequest="120"
                      Text="Incomes"
+                     Command="{Binding ShowIncomesCommand}"
                      HorizontalOptions="Start" />
 
             <Button  Grid.Row="5"
-                     Grid.ColumnSpan="2"
+                     Grid.Column="0"
                      Margin="10"
-                     WidthRequest="220"
-                     Text="Create new transaction"
-                     HorizontalOptions="Center" />
+                     WidthRequest="120"
+                     Text="Нова витрата"
+                     
+                     HorizontalOptions="End" />
+            <Button  Grid.Row="5"
+                     Grid.Column="1"
+                     Margin="10"
+                     WidthRequest="120"
+                     Text="Новий дохід"
+                     HorizontalOptions="Start" />
+            <Button Grid.Row="6"
+                    Grid.ColumnSpan="2"
+                    Margin="10"
+                    WidthRequest="260"
+                    Text="Додати нову категорію"
+                    HorizontalOptions="Center" />
 
 
 

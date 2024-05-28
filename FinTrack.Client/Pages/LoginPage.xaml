@@ -12,7 +12,7 @@
             HorizontalOptions="Center" />
         <Entry 
                Placeholder="Enter username"
-               Text="{Binding Login}"
+               Text="{Binding Name}"
             />
 
         <Entry 
@@ -24,7 +24,7 @@
         <Button Text="Regitration" 
                 WidthRequest="250" 
                 BackgroundColor="BlueViolet"
-                Command="{Binding RegistrationCommandCommand}"/>
+                Command="{Binding RegistrationCommand}"/>
         
         
     </VerticalStackLayout>

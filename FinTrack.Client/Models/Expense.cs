@@ -6,7 +6,7 @@ namespace FinTrack.Client.Models
     {
         public string Description { get; set; }
         public decimal ExpenseVolume { get; set; }
-        public DateTime IncomeDate { get; set; }
+        public DateTime ExpenseDate { get; set; }
         public int ExpenseCategoryId { get; set; }
         public ExpenseCategory ExpenseCategory { get; set; }
     }

@@ -44,7 +44,6 @@ namespace FinTrack.Client.Services.Implementation
             }
         }
 
-
         public async Task<Result<IEnumerable<ExpenseCategory>>> GetExpenseCategories(int userId)
         {
             try

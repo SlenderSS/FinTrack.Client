@@ -37,7 +37,7 @@ namespace FinTrack.Client.ViewModels
 
 
         [RelayCommand]
-        public async Task CreateTransaction()
+        public async Task CreateExpense()
         {
             if (string.IsNullOrWhiteSpace(_name) ||
                 _expenseVolume == 0 ||

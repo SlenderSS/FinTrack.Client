@@ -1,32 +1,27 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="FinTrack.Client.Pages.Profile.BudgetsListView"
+             x:Class="FinTrack.Client.Pages.Profile.ExpensesView"
+             xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
              xmlns:vm="clr-namespace:FinTrack.Client.ViewModels"
              xmlns:models="clr-namespace:FinTrack.Client.Models"
-             x:DataType="vm:BudgetListViewModel"
-             Title="Budgets">
-    <Grid RowDefinitions="50, *" Margin="20">
+             x:DataType="vm:ExpensesViewModel"
+             Title="{Binding Budget.Name, StringFormat='{0} витрати'}">
+    <Grid RowDefinitions="200,  *">
+        <lvc:PieChart Series="{Binding Series}" IsClockwise="False">
+            
+        </lvc:PieChart>
 
-        <Button Grid.Row="0"
-                Text="Add new budget"
-                Command="{Binding CreateBudgetCommand}" />
-
-
-        <CollectionView Grid.Row="2"
-                        ItemsSource="{Binding Budgets}"
-                        Margin="10"
-                        SelectionMode="Single"
-                        SelectionChangedCommand="{Binding GetBudgetDetailsCommand}"
-                        SelectedItem="{Binding SelectedBudget}">
+        <CollectionView Grid.Row="3" ItemsSource="{Binding Expenses}" Margin="10">
             <CollectionView.ItemsLayout>
-                <LinearItemsLayout ItemSpacing="40"
+                <LinearItemsLayout ItemSpacing="10"
+                                   
                                    Orientation="Vertical" />
 
 
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:Budget">
+                <DataTemplate x:DataType="models:Expense">
                     <Frame CornerRadius="10"
                            BackgroundColor="#336696"
                            HeightRequest="170">
@@ -40,25 +35,28 @@
                             <Label Grid.Row="1"
                                    Grid.Column="0"
                                    HorizontalOptions="End"
-                                   Text="Planned: "
+                                   Text="Expensed: "
                                    FontSize="Subtitle" />
                             <Label Grid.Row="1"
                                    Grid.Column="1"
+                                   Text="{Binding ExpenseVolume}"
                                    HorizontalOptions="End"
-                                   Text="{Binding PlannedAmountOfMoney}"
                                    FontSize="Subtitle" />
+
+
+
 
                             <Label Grid.Row="2"
                                    Grid.Column="0"
                                    HorizontalOptions="End"
-                                   Text="Total: "
+                                   Text="Category:"
                                    FontSize="Subtitle" />
                             <Label Grid.Row="2"
                                    Grid.Column="1"
                                    HorizontalOptions="End"
-                                   Text="{Binding TotalAmountOfMoney}"
+                                   Text="{Binding ExpenseCategory.Name}"
                                    FontSize="Subtitle" />
-
+                            
                             <Label Grid.Row="3"
                                    Grid.Column="0"
                                    HorizontalOptions="End"
@@ -67,7 +65,7 @@
                             <Label Grid.Row="3"
                                    Grid.Column="1"
                                    HorizontalOptions="End"
-                                   Text="{Binding CreationDate}"
+                                   Text="{Binding ExpenseDate}"
                                    FontSize="Subtitle" />
 
 
@@ -76,6 +74,5 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-
     </Grid>
 </ContentPage>
