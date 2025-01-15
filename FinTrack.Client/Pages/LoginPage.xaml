@@ -5,27 +5,28 @@
              x:Class="FinTrack.Client.Pages.LoginPage"
              x:DataType="vm:LoginViewModel"
              >
-    <VerticalStackLayout VerticalOptions="Center" Spacing="30">
+    <Grid VerticalOptions="Center" HorizontalOptions="Center" RowDefinitions="50, 50, 50, 50, 50" RowSpacing="20">
         <Label FontSize="Title"
-            Text="Login to FinTrack"
+               Grid.Row="0"
+            Text="Авторизація у FinTrack"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
-        <Entry 
-               Placeholder="Enter username"
+        <Entry Grid.Row="1"
+               Placeholder="Введіть ім'я користувача"
                Text="{Binding Name}"
             />
 
-        <Entry 
-               Placeholder="Enter password"
+        <Entry Grid.Row="2"
+               Placeholder="Введіть пароль"
             Text="{Binding Password}"
             />
-        <Button Text="Submit" WidthRequest="250" Command="{Binding LoginCommand}"/>
+        <Button Grid.Row="3" Text="Авторизуватись" WidthRequest="250" Command="{Binding LoginCommand}"/>
 
-        <Button Text="Regitration" 
+        <Button Grid.Row="4" Text="Зареєструватись" 
                 WidthRequest="250" 
                 BackgroundColor="BlueViolet"
                 Command="{Binding RegistrationCommand}"/>
         
         
-    </VerticalStackLayout>
+    </Grid>
 </ContentPage>

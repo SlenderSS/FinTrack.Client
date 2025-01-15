@@ -3,42 +3,49 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FinTrack.Client.Pages.RegistrationPage"
              xmlns:vm="clr-namespace:FinTrack.Client.ViewModels"
-             x:DataType="vm:RegistrationViewModel"
-             >
-    <VerticalStackLayout VerticalOptions="Center" Spacing="30" >
-        <Label FontSize="Title"
-            Text="Registration"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Entry 
-               Placeholder="Enter username"
+             x:DataType="vm:RegistrationViewModel">
+    <Grid VerticalOptions="Center"
+          HorizontalOptions="Center"
+          RowDefinitions="50, 50, 50, 50, 50, 50, 50"
+          RowSpacing="20">
+        <Label Grid.Row="0"
+               FontSize="Title"
+               Text="Реєстрація"
+               VerticalOptions="Center"
+               HorizontalOptions="Center" />
+        <Entry Grid.Row="1"
+               Placeholder="Введіть ім'я користувача"
                Text="{Binding Username}"
-            FontSize="20"
-            />
+               FontSize="18" />
 
-        <Entry IsPassword="{Binding IsHidden}"
-               Placeholder="Enter password"
-                Text="{Binding Password}"
-               FontSize="20"
-                />
-        <Entry IsPassword="{Binding IsHidden}"
-                Placeholder="Confirm password"
+        <Entry Grid.Row="2"
+               IsPassword="{Binding IsHidden}"
+               Placeholder="Введіть пароль"
+               Text="{Binding Password}"
+               FontSize="18" />
+        <Entry  Grid.Row="3"
+                IsPassword="{Binding IsHidden}"
+                Placeholder="Підтвердіть пароль"
                 Text="{Binding ConfPassword}"
-               FontSize="20"
-                />
+                FontSize="18" />
 
-        <HorizontalStackLayout >
-            <CheckBox IsChecked="{Binding IsHidden}"/>
-            <Label Text="Show password" VerticalOptions="Center"/>
+        <HorizontalStackLayout Grid.Row="4">
+            <CheckBox IsChecked="{Binding IsHidden}" />
+            <Label Text="Приховати пароль"
+                   VerticalOptions="Center" />
         </HorizontalStackLayout>
-        
-        <Button Text="Submit" WidthRequest="250" Command="{Binding RegistrationCommand}"/>
 
-        <Button Text="Login" 
-                WidthRequest="250" 
+        <Button Grid.Row="5"
+                Text="Зареєструвати"
+                WidthRequest="250"
+                Command="{Binding RegistrationCommand}" />
+
+        <Button Grid.Row="6"
+                Text="Авторизація"
+                WidthRequest="250"
                 BackgroundColor="BlueViolet"
-                Command="{Binding GoToLoginCommand}"/>
+                Command="{Binding GoToLoginCommand}" />
 
 
-    </VerticalStackLayout>
+    </Grid>
 </ContentPage>

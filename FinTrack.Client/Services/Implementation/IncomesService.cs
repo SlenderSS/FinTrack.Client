@@ -23,7 +23,14 @@ namespace FinTrack.Client.Services.Implementation
                 new HttpRequestMessage(
                     HttpMethod.Post,
                     _httpClient.BaseAddress + $"?budgetId={budgetId}");
-                var content = JsonConvert.SerializeObject(incomeCreate);
+                var content = JsonConvert.SerializeObject(new
+                {
+                    Name = incomeCreate.Name,
+                    Description = incomeCreate.Description ?? " ",
+                    IncomeVolume = incomeCreate.IncomeVolume,
+                    IncomeCategoryId = incomeCreate.IncomeCategoryId,
+                    IncomeDate = DateTime.Now
+                });
 
                 message.Content = new StringContent(content, Encoding.UTF8, "application/json");
 

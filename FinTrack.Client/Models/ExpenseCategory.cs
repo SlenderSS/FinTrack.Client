@@ -4,7 +4,9 @@ namespace FinTrack.Client.Models
 {
     public class ExpenseCategory : BaseModel
     {
-        public User User{ get; set; }
+        private User user;
+
+        public User User { get => user; set => SetProperty(ref user, value); }
     }
 
 

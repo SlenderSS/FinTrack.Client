@@ -33,13 +33,13 @@ namespace FinTrack.Client.ViewModels
             if (login.IsFailure)
             {
                 await Shell.Current.DisplayAlert("", login.Error, "Ok");
+                return;
             }
             else
             {
                 await Shell.Current.DisplayAlert("", "Login successful", "Ok");
                 _user = login.Value;
-            }
-            await Shell.Current.DisplayAlert("", "Login successed", "Ok");
+            }            
             Dictionary<string, object> parameters = new Dictionary<string, object>()
             {
                 {"user", _user }

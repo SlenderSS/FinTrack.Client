@@ -10,11 +10,12 @@
     Title="FinTrack.Client">
 
 
-    <ShellContent
-        ContentTemplate="{DataTemplate userpages:BudgetsListView}"
-        Route="budgets"/>
+    
 
     <ShellContent
         ContentTemplate="{DataTemplate pages:LoginPage}"
         Route="login" />
+
+    <ShellContent ContentTemplate="{DataTemplate userpages:BudgetsListView}"
+                  Route="budgets" />
 </Shell>
