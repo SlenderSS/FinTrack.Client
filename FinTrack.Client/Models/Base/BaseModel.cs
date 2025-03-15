@@ -9,7 +9,11 @@ namespace FinTrack.Client.Models.Base
 {
     public class BaseModel : ObservableObject
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
+        private int id;
+        private string name;
+
+        public int Id { get => id; set => SetProperty(ref id, value); }
+        public string Name { get => name; set => SetProperty(ref name, value); }
+
     }
 }

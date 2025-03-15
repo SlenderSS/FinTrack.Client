@@ -14,7 +14,7 @@ namespace FinTrack.Client.Services.Implementation
     public class ExpensesService : IExpenseService
     {
         private readonly HttpClient _httpClient;
-        private readonly string _baseUrl = "https://localhost:44352/api/Expense"; // create https://localhost:44352/api/Expense?budgetId=1
+        private readonly string _baseUrl = "https://localhost:44352/api/Expense"; 
         public ExpensesService()
         {
             _httpClient = new HttpClient();
@@ -27,8 +27,15 @@ namespace FinTrack.Client.Services.Implementation
                 HttpRequestMessage message =
                 new HttpRequestMessage(
                     HttpMethod.Post,
-                    _httpClient.BaseAddress + $"?userId={budgetId}");
-                var content = JsonConvert.SerializeObject(expenseCreate);
+                    _httpClient.BaseAddress + $"?budgetId={budgetId}");
+                var content = JsonConvert.SerializeObject(new
+                {
+                    Name = expenseCreate.Name,
+                    Description = expenseCreate.Description ?? " ",
+                    ExpenseVolume = expenseCreate.ExpenseVolume,
+                    ExpenseCategoryId = expenseCreate.ExpenseCategoryId,
+                    ExpenseDate = DateTime.Now
+                }) ;
 
                 message.Content = new StringContent(content, Encoding.UTF8, "application/json");
 

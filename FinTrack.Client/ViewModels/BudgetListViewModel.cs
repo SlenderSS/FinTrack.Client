@@ -1,162 +1,83 @@
-﻿using CommunityToolkit.Maui.Core;
-using CommunityToolkit.Maui.Views;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using FinTrack.Client.Models;
 using FinTrack.Client.Services.Interfaces;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace FinTrack.Client.ViewModels
+namespace FinTrack.Client.ViewModels;
+
+[QueryProperty(nameof(User), "user")]
+public partial class BudgetListViewModel : ObservableObject
 {
-    [QueryProperty(nameof(User), "user")]
-    public partial class BudgetListViewModel : ObservableObject
+    private readonly IBudgetService _budgetService;
+    private readonly ICurrencyService _currencyService;
+
+    private ObservableCollection<Budget> budgets;
+
+
+
+    [ObservableProperty]
+    private User _user;
+
+    public ObservableCollection<Budget> Budgets
     {
-        private readonly IBudgetService _budgetService;
-        private readonly ICurrencyService _currencyService;
-
-        [ObservableProperty]
-        private User _user = new User();
-
-        public ObservableCollection<Budget> Budgets { get; set; } = new ObservableCollection<Budget>();
-        public ObservableCollection<Currency> Currencies { get; set; } = new ObservableCollection<Currency>();
-
-        [ObservableProperty]
-        private Budget _selectedBudget;
-
-
-        [RelayCommand]
-        public async Task CreateBudget()
+        get => budgets; set
         {
-            var parameners = new Dictionary<string, object>()
-            {
-                { "user", _user }
-            };
-
-            await Shell.Current.GoToAsync("createBudget", parameners);
+            budgets = value;
+            OnPropertyChanged();
         }
+    }
 
-        [RelayCommand]
-        public async Task GetBudgetDetails()
+    [ObservableProperty]
+    private Budget _selectedBudget;
+
+    [RelayCommand]
+    public async Task CreateBudget()
+    {
+        var parameners = new Dictionary<string, object>()
         {
-            var parameners = new Dictionary<string, object>()
-            {
-                { "budget", _selectedBudget }
-            };
+            { "user", _user }
+        };
 
-            await Shell.Current.GoToAsync("budgetDetails", parameners);
-        }
+        await Shell.Current.GoToAsync("createBudget", parameners);
+    }
 
-        [RelayCommand]
-        public async Task LoadDataAsync()
+    [RelayCommand]
+    public async Task GetBudgetDetails()
+    {
+        _selectedBudget.User = _user;
+        var parameners = new Dictionary<string, object>()
+        {
+            { "budget", _selectedBudget }
+        };
+
+        await Shell.Current.GoToAsync("budgetDetails", parameners);
+    }
+
+    [RelayCommand]
+    public async Task LoadDataAsync()
+    {
+        await Task.Delay(500);
+
+        while (true)
         {
             var result = await _budgetService.GetBudgets(User.Id);
-            var currencies = await _currencyService.GetCurrencies();
 
-            if (currencies.IsFailure)
-                await Shell.Current.DisplayAlert("Error", currencies.Error, "Ok");
-            else if (result.IsFailure)
+            if (result.IsFailure)
                 await Shell.Current.DisplayAlert("Error", result.Error, "Ok");
             else
-            {
                 Budgets = new ObservableCollection<Budget>(result.Value);
-                Currencies = new ObservableCollection<Currency>(currencies.Value);
-            }
 
+            await Task.Delay(30000);
         }
-        public BudgetListViewModel(IBudgetService budgetService, 
-            ICurrencyService currencyService)
-        {
-            _budgetService = budgetService;
-            _currencyService = currencyService;
+    }
+    public BudgetListViewModel(IBudgetService budgetService,
+        ICurrencyService currencyService)
+    {
+        _budgetService = budgetService;
+        _currencyService = currencyService;
 
+        Task.Run(LoadDataAsync);
 
-
-            //Task.Run(LoadDataAsync);
-            InitCollection();
-        }
-
-        private void InitCollection()
-        {
-            Budgets = new ObservableCollection<Budget>
-        {
-            new Budget
-            {
-                Id = 1,
-                Name = "Budget 1",
-                PlannedAmountOfMoney = 1000.00m,
-                TotalAmountOfMoney = 1200.00m,
-                UserId = 1,
-                User = new User { Id = 1, Name = "User 1" },
-                CreationDate = DateTime.Now.AddMonths(-1),
-                CurrencyId = 1,
-                Currency = new Currency { Id = 1, Name = "USD" }
-            },
-            new Budget
-            {
-                Id = 2,
-                Name = "Budget 2",
-                PlannedAmountOfMoney = 2000.00m,
-                TotalAmountOfMoney = 1800.00m,
-                UserId = 2,
-                User = new User { Id = 2, Name = "User 2" },
-                CreationDate = DateTime.Now.AddMonths(-2),
-                CurrencyId = 2,
-                Currency = new Currency { Id = 2, Name = "EUR" }
-            },
-            new Budget
-            {
-                Id = 3,
-                Name = "Budget 3",
-                PlannedAmountOfMoney = 1500.00m,
-                TotalAmountOfMoney = 1500.00m,
-                UserId = 1,
-                User = new User { Id = 1, Name = "User 1" },
-                CreationDate = DateTime.Now.AddMonths(-3),
-                CurrencyId = 3,
-                Currency = new Currency { Id = 3, Name = "GBP" }
-            },
-            new Budget
-            {
-                Id = 1,
-                Name = "Budget 1",
-                PlannedAmountOfMoney = 1000.00m,
-                TotalAmountOfMoney = 1200.00m,
-                UserId = 1,
-                User = new User { Id = 1, Name = "User 1" },
-                CreationDate = DateTime.Now.AddMonths(-1),
-                CurrencyId = 1,
-                Currency = new Currency { Id = 1, Name = "USD" }
-            },
-            new Budget
-            {
-                Id = 2,
-                Name = "Budget 2",
-                PlannedAmountOfMoney = 2000.00m,
-                TotalAmountOfMoney = 1800.00m,
-                UserId = 2,
-                User = new User { Id = 2, Name = "User 2" },
-                CreationDate = DateTime.Now.AddMonths(-2),
-                CurrencyId = 2,
-                Currency = new Currency { Id = 2, Name = "EUR" }
-            },
-            new Budget
-            {
-                Id = 3,
-                Name = "Budget 3",
-                PlannedAmountOfMoney = 1500.00m,
-                TotalAmountOfMoney = 1500.00m,
-                UserId = 1,
-                User = new User { Id = 1, Name = "User 1" },
-                CreationDate = DateTime.Now.AddMonths(-3),
-                CurrencyId = 3,
-                Currency = new Currency { Id = 3, Name = "GBP" }
-            }
-        };
-        }
     }
 }

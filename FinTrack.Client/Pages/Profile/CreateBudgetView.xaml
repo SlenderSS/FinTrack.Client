@@ -4,20 +4,15 @@
              x:Class="FinTrack.Client.Pages.Profile.CreateBudgetView"
              xmlns:vm="clr-namespace:FinTrack.Client.ViewModels"
              x:DataType="vm:BudgetCreateViewModel"
-             Title="BudgetCreateView">
-    <Grid RowDefinitions="50, 100, 100, 100, 50" ColumnSpacing="20"
-          ColumnDefinitions="*, *" HorizontalOptions="Center">
+             Title="Створення бюджету">
+    <Grid RowDefinitions="50, 100, 100, 100, 50" ColumnSpacing="10"
+          ColumnDefinitions="156, 150" HorizontalOptions="Center">
 
-        <Label Grid.Row="0"
-               Grid.ColumnSpan="2"
-               HorizontalOptions="Center"
-               Text="Create budget"
-               
-               VerticalOptions="Center"
-               FontSize="Title" />
 
-        <Entry Placeholder="Budget title"
+
+        <Entry Placeholder="Назва бюджету"
                Grid.Row="1"
+               Text="{Binding BudgetTitle}"
                HorizontalTextAlignment="Center"
                Grid.ColumnSpan="2"
                Margin="10"
@@ -28,7 +23,7 @@
                 Grid.ColumnSpan="2"
                 FontSize="Caption"
                 Margin="10"
- 
+                
                 HeightRequest="60"
                 SelectedItem="{Binding BudgetCurrency}"
                 
@@ -42,7 +37,7 @@
                Grid.Column="0"
                VerticalOptions="Center"
                FontSize="Subtitle"
-               Text="{Binding BudgetAmount, StringFormat='Planned: {0}'}" />
+               Text="{Binding BudgetAmount, StringFormat='Виділено: {0}'}" />
 
         <Slider  Grid.Row="3"
                  Grid.Column="1"
@@ -53,7 +48,8 @@
 
         <Button Grid.Row="4"
                 Grid.ColumnSpan="2"
-                Text="Ok"
+                Text="Створити"
+                Command="{Binding CreateBudgetCommand}"
                 WidthRequest="150" />
 
 

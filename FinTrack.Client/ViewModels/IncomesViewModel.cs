@@ -16,21 +16,37 @@ namespace FinTrack.Client.ViewModels
     public partial class IncomesViewModel : ObservableObject
     {
         private readonly IIncomeService _expenseService;
-
-
+        private readonly IIncomeCategoryService _categoryService;
         [ObservableProperty]
         private Budget _budget;
+        private ObservableCollection<Income> incomes;
+        private ObservableCollection<ISeries> series;
 
-        public ObservableCollection<Income> Incomes { get; private set; }
+        public ObservableCollection<Income> Incomes
+        {
+            get => incomes; private set
+            {
+                incomes = value;
+                OnPropertyChanged();
+            }
+        }
 
         public ObservableCollection<IncomeCategory> IncomeCategories { get; private set; } = new ObservableCollection<IncomeCategory>();
 
-        public ObservableCollection<ISeries> Series { get; private set; }
+        public ObservableCollection<ISeries> Series
+        {
+            get => series; private set
+            {
+                series = value;
+                OnPropertyChanged();
+            }
+        }
 
 
-        public IncomesViewModel(IIncomeService expenseService)
+        public IncomesViewModel(IIncomeService expenseService, IIncomeCategoryService categoryService)
         {
             _expenseService = expenseService;
+            _categoryService = categoryService;
 
             //InitCollection();
 
@@ -98,8 +114,16 @@ namespace FinTrack.Client.ViewModels
         //}
         private async Task LoadData()
         {
+            await Task.Delay(500);
             while (true)
             {
+                var categoriesResult = await _categoryService.GetIncomeCategories(Budget.UserId);
+                if (categoriesResult.IsFailure)
+                {
+                    await Shell.Current.DisplayAlert("", categoriesResult.Error, "Ok");
+                    continue;
+                }
+                IncomeCategories = new ObservableCollection<IncomeCategory>(categoriesResult.Value);
                 var result = await _expenseService.GetIncomes(_budget.Id);
                 if (result.IsFailure)
                 {
@@ -114,7 +138,7 @@ namespace FinTrack.Client.ViewModels
                         IncomeCategories.Select(category => new PieSeries<int>
                         {
                             Values = [
-                                Incomes.Count(expense => expense.IncomeCategory.Name == category.Name)
+                                Incomes.Count(income => income.IncomeCategory.Name == category.Name)
                             ],
                             Name = category.Name
                         }));

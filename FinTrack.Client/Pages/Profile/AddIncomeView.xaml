@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="FinTrack.Client.Pages.Profile.AddExpenseView"
+             x:Class="FinTrack.Client.Pages.Profile.AddIncomeView"
              xmlns:vm="clr-namespace:FinTrack.Client.ViewModels"
-             x:DataType="vm:AddExpenseViewModel"
-             Title="Додати нову витрату">
+             x:DataType="vm:AddIncomeViewModel"
+             Title="Додати новий дохід">
     <Grid RowDefinitions="50, 100, 50, 100, 30, 60"
-          
-          HorizontalOptions="Center" Padding="20">
+          HorizontalOptions="Center"
+          Padding="20">
 
 
-        <Entry Placeholder="Назва витрати"
+        <Entry Placeholder="Назва доходу"
                Grid.Row="0"
                Text="{Binding Name}"
                HorizontalTextAlignment="Center"
@@ -28,33 +28,29 @@
 
         <Entry Placeholder="Сума витрати"
                Grid.Row="2"
-               Text="{Binding ExpenseVolume}"
+               Text="{Binding IncomeVolume}"
                HorizontalTextAlignment="Center"
                VerticalOptions="Center"
                Margin="10"
-               HeightRequest="60" Keyboard="Numeric"/>
-        
+               HeightRequest="60"
+               Keyboard="Numeric" />
+
         <Picker Grid.Row="3"
                 FontSize="Caption"
                 Margin="10"
                 HeightRequest="60"
-                SelectedItem="{Binding ExpenseCategory}"
+                SelectedItem="{Binding IncomeCategory}"
                 HorizontalTextAlignment="Center"
-                ItemsSource="{Binding ExpenseCategories}"
+                ItemsSource="{Binding IncomeCategories}"
                 ItemDisplayBinding="{Binding Name}">
         </Picker>
 
-        
 
-       
+
+
         <Button Grid.Row="5"
-                
                 Text="Зберегти"
-                Command="{Binding CreateExpenseCommand}"
+                Command="{Binding CreateIncomeCommand}"
                 WidthRequest="210" />
-
-
-
-
     </Grid>
 </ContentPage>

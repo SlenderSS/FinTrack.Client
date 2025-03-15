@@ -43,7 +43,7 @@ namespace FinTrack.Client.Services.Implementation
             }
             catch (HttpRequestException e)
             {
-                return Result.Failure<User>(e.Message);
+                return Result.Failure<User>("Incorrectly entered password");
             }
             
 

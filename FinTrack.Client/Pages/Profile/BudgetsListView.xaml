@@ -5,11 +5,11 @@
              xmlns:vm="clr-namespace:FinTrack.Client.ViewModels"
              xmlns:models="clr-namespace:FinTrack.Client.Models"
              x:DataType="vm:BudgetListViewModel"
-             Title="Budgets">
+             Title="Список бюджетів">
     <Grid RowDefinitions="50, *" Margin="20">
 
         <Button Grid.Row="0"
-                Text="Add new budget"
+                Text="Створити новий бюджет"
                 Command="{Binding CreateBudgetCommand}" />
 
 
@@ -28,10 +28,10 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:Budget">
                     <Frame CornerRadius="10"
-                           BackgroundColor="#336696"
+                           BackgroundColor="#56a2ff"
                            HeightRequest="170">
                         <Grid RowDefinitions="*, *, *, *"
-                              ColumnDefinitions="2*, *">
+                              ColumnDefinitions="*, *">
                             <Label Grid.Row="0"
                                    Grid.ColumnSpan="2"
                                    Text="{Binding Name}"
@@ -40,7 +40,7 @@
                             <Label Grid.Row="1"
                                    Grid.Column="0"
                                    HorizontalOptions="End"
-                                   Text="Planned: "
+                                   Text="Заплановано: "
                                    FontSize="Subtitle" />
                             <Label Grid.Row="1"
                                    Grid.Column="1"
@@ -51,7 +51,7 @@
                             <Label Grid.Row="2"
                                    Grid.Column="0"
                                    HorizontalOptions="End"
-                                   Text="Total: "
+                                   Text="Загалом: "
                                    FontSize="Subtitle" />
                             <Label Grid.Row="2"
                                    Grid.Column="1"
@@ -62,7 +62,7 @@
                             <Label Grid.Row="3"
                                    Grid.Column="0"
                                    HorizontalOptions="End"
-                                   Text="Created: "
+                                   Text="Створено: "
                                    FontSize="Subtitle" />
                             <Label Grid.Row="3"
                                    Grid.Column="1"

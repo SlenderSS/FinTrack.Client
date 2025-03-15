@@ -9,20 +9,20 @@ namespace FinTrack.Client.Services.Implementation
     public class ExpenseCategoriesService : IExpenseCategoryService
     {
         private readonly HttpClient _httpClient;
-        private readonly string _baseUrl = "https://localhost:44352/api/Expense"; // create https://localhost:44352/api/Expense?budgetId=1
+        private readonly string _baseUrl = "https://localhost:44352/api/ExpenseCategory"; 
         public ExpenseCategoriesService()
         {
             _httpClient = new HttpClient();
             _httpClient.BaseAddress = new Uri(_baseUrl);
         }
-        public async Task<Result> CreateExpenseCategory(int budgetId, ExpenseCategory expenseCreate)
+        public async Task<Result> CreateExpenseCategory(int userId, ExpenseCategory expenseCreate)
         {
             try
             {
                 HttpRequestMessage message =
                 new HttpRequestMessage(
                     HttpMethod.Post,
-                    _httpClient.BaseAddress + $"?budgetId={budgetId}");
+                    _httpClient.BaseAddress + $"?userId={userId}");
                 var content = JsonConvert.SerializeObject(expenseCreate);
 
                 message.Content = new StringContent(content, Encoding.UTF8, "application/json");

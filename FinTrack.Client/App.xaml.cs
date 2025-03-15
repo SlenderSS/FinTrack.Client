@@ -12,7 +12,7 @@ namespace FinTrack.Client
         }
         protected override async void OnStart()
         {
-            await Shell.Current.GoToAsync("//budgets");
+            await Shell.Current.GoToAsync("//login");
             base.OnStart();
         }
     }

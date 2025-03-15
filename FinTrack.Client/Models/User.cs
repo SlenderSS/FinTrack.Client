@@ -4,7 +4,9 @@ namespace FinTrack.Client.Models
 {
     public class User : BaseModel
     {
-        public string Password { get; set; }
+        private string password;
+
+        public string Password { get => password; set => SetProperty(ref password, value); }
     }
 
 

@@ -9,11 +9,21 @@ namespace FinTrack.Client.ViewModels
     [QueryProperty(nameof(Budget), "budget")]
     public partial class AddIncomeViewModel : ObservableObject
     {
+
         private readonly IIncomeService _incomeService;
         private readonly IIncomeCategoryService _categoryService;
 
-        public ObservableCollection<IncomeCategory> IncomeCategories { get; set; }
+        private ObservableCollection<IncomeCategory> _incomeCategories;
 
+        public ObservableCollection<IncomeCategory> IncomeCategories
+        {
+            get => _incomeCategories;
+            set
+            {
+                _incomeCategories = value;
+                OnPropertyChanged();
+            }
+        }
 
         [ObservableProperty]
         private IncomeCategory _incomeCategory;
@@ -34,6 +44,7 @@ namespace FinTrack.Client.ViewModels
         [RelayCommand]
         public async Task CreateIncome()
         {
+
             if (string.IsNullOrWhiteSpace(_name) ||
                 _incomeVolume == 0 ||
                 IncomeCategory == null)
@@ -55,6 +66,7 @@ namespace FinTrack.Client.ViewModels
             {
                 await Shell.Current.CurrentPage.DisplayAlert("Success", "The income was successfully added!", "Ok");
             }
+
         }
 
 
@@ -67,12 +79,14 @@ namespace FinTrack.Client.ViewModels
             {
                 while (true)
                 {
-                    var categories = await _categoryService.GetIncomeCategories(Budget.UserId);
-                    IncomeCategories = new ObservableCollection<IncomeCategory>(categories.Value);
+                    await Task.Delay(1000);
+                    var result = await _categoryService.GetIncomeCategories(_budget.Id);
+                    var categories = result.Value;
+                    IncomeCategories = new ObservableCollection<IncomeCategory>(categories);
 
                     await Task.Delay(30000);
                 }
             });
-        }
+        } 
     }
 }
